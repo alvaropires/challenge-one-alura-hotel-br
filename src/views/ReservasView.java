@@ -11,15 +11,22 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
+
+import jdbc.controller.ReservaController;
+import jdbc.models.Reserva;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.text.Format;
+import java.util.Calendar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeListener;
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.beans.PropertyChangeEvent;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -38,6 +45,8 @@ public class ReservasView extends JFrame {
 	private JLabel labelExit;
 	private JLabel lblValorSimbolo; 
 	private JLabel labelAtras;
+	
+	private ReservaController reservaController;
 
 	/**
 	 * Launch the application.
@@ -60,6 +69,7 @@ public class ReservasView extends JFrame {
 	 */
 	public ReservasView() {
 		super("Reserva");
+		reservaController = new ReservaController();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 560);
@@ -142,6 +152,7 @@ public class ReservasView extends JFrame {
 		txtDataS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				//Ativa o evento, após o usuário selecionar as datas, o valor da reserva deve ser calculado
+				calcularValor(txtDataE, txtDataS);
 			}
 		});
 		txtDataS.setDateFormatString("yyyy-MM-dd");
@@ -296,8 +307,7 @@ public class ReservasView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (ReservasView.txtDataE.getDate() != null && ReservasView.txtDataS.getDate() != null) {		
-					RegistroHospede registro = new RegistroHospede();
-					registro.setVisible(true);
+					salvarReserva();
 				} else {
 					JOptionPane.showMessageDialog(null, "Deve preencher todos os campos.");
 				}
@@ -328,4 +338,42 @@ public class ReservasView extends JFrame {
 	        int y = evt.getYOnScreen();
 	        this.setLocation(x - xMouse, y - yMouse);
 }
+	    
+	    private void salvarReserva() {
+	    	String dataEntrada = ((JTextField)txtDataE.getDateEditor().getUiComponent()).getText();
+	    	String dataSaida = ((JTextField)txtDataS.getDateEditor().getUiComponent()).getText();
+	    	Reserva novaReserva = new Reserva(Date.valueOf(dataEntrada),
+	    			Date.valueOf(dataSaida),
+	    			new BigDecimal(txtValor.getText()),
+	    			txtFormaPagamento.getSelectedItem().toString());
+
+	    	reservaController.salvar(novaReserva);
+	    	
+	    	JOptionPane.showMessageDialog(contentPane, "Registro salvo, Número de reserva " + novaReserva.getId().toString());
+	    	
+	    	
+	    	RegistroHospede registroHospede = new RegistroHospede(novaReserva.getId());
+	    	registroHospede.setVisible(true);
+	    	dispose();
+	    	
+	    }
+	    
+	    private void calcularValor(JDateChooser dataEntrada, JDateChooser dataSaida) {
+	    	if(dataEntrada.getDate() != null && dataSaida.getDate() != null) {
+	    		Calendar inicio = dataEntrada.getCalendar();
+	    		Calendar fim = dataSaida.getCalendar();
+	    		int diaria = 180;
+	    		int dias = -1;
+	    		int valor;
+	    		
+	    		while(inicio.before(fim)||inicio.equals(fim)) {
+	    			dias++;
+	    			inicio.add(Calendar.DATE, 1);
+	    		}
+	    		valor = dias * diaria;
+	    		txtValor.setText("" + valor);
+	    	}
+	    	
+	    }
+	    
 }

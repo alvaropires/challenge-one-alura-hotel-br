@@ -10,6 +10,6 @@ public class Hospedes {
 	private Date dataNascimento;
 	private String nacionalidade;
 	private String telefone;
-	private Reservas reserva;
+	private Reserva reserva;
 
 }

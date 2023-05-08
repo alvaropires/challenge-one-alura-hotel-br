@@ -3,7 +3,7 @@ package jdbc.models;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-public class Reservas {
+public class Reserva {
 	
 	private Integer id;
 	private Date dataEntrada;
@@ -11,8 +11,7 @@ public class Reservas {
 	private BigDecimal valor;
 	private String formaPagamento;
 	
-	public Reservas(Integer id, Date dataEntrada, Date dataSaida, BigDecimal valor, String formaPagamento) {
-		super();
+	public Reserva(Integer id, Date dataEntrada, Date dataSaida, BigDecimal valor, String formaPagamento) {
 		this.id = id;
 		this.dataEntrada = dataEntrada;
 		this.dataSaida = dataSaida;
@@ -20,8 +19,7 @@ public class Reservas {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public Reservas(Date dataEntrada, Date dataSaida, BigDecimal valor, String formaPagamento) {
-		super();
+	public Reserva(Date dataEntrada, Date dataSaida, BigDecimal valor, String formaPagamento) {
 		this.dataEntrada = dataEntrada;
 		this.dataSaida = dataSaida;
 		this.valor = valor;
@@ -50,6 +48,16 @@ public class Reservas {
 
 	public String getFormaPagamento() {
 		return formaPagamento;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "reserva: id: " + id +
+				" data de entrada: " + getDataEntrada().toString() +
+				" data de saida: " + getDataSaida().toString() +
+				" valor: " + getValor().toString() +
+				" forma de pagamento: " + getFormaPagamento();
 	}
 	
 	

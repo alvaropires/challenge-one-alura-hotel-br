@@ -1,4 +1,4 @@
-/util/
-/jdb/
 /jdbc/
-/jdbc.models/
+/models/
+/dao/
+/views/
