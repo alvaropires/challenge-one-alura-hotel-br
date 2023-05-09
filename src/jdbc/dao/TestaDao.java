@@ -25,7 +25,9 @@ public class TestaDao {
 //		reservasAntes.forEach(reserva-> System.out.println(reserva));
 //		reservasDepois.forEach(reserva-> System.out.println(reserva));
 		
-		hospedeDao.listar().forEach(hospede->System.out.println(hospede));
+		
+		hospedeDao.deletaPorId(3);
+		hospedeDao.listar().forEach(reserva->System.out.println(reserva));
 		
 
 	}

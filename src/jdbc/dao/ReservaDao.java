@@ -3,14 +3,10 @@ package jdbc.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.cj.xdevapi.PreparableStatement;
-import com.mysql.cj.xdevapi.Statement;
 
-import jdb.factory.ConnectionFactory;
 import jdbc.models.Reserva;
 
 public class ReservaDao {
@@ -88,11 +84,7 @@ public class ReservaDao {
 					}
 				}
 			}
-			if(reserva != null) {
-				return reserva;			
-			} else {
-				throw new NullPointerException();
-			}			
+			return reserva;			
 		}catch(Exception e) {
 			throw new RuntimeException(e);
 		}

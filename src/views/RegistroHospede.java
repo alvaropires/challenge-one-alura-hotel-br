@@ -7,6 +7,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import java.awt.Color;
 import com.toedter.calendar.JDateChooser;
+
+import jdbc.controller.HospedeController;
+import jdbc.controller.ReservaController;
+import jdbc.models.Hospede;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
@@ -19,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.Date;
 import java.text.Format;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
@@ -28,6 +34,8 @@ import javax.swing.JSeparator;
 @SuppressWarnings("serial")
 public class RegistroHospede extends JFrame {
 
+	private HospedeController hospedeController;
+	private ReservaController reservaController;
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTextField txtSobrenome;
@@ -38,6 +46,7 @@ public class RegistroHospede extends JFrame {
 	private JLabel labelExit;
 	private JLabel labelAtras;
 	int xMouse, yMouse;
+	private static Integer reservaId;
 
 	/**
 	 * Launch the application.
@@ -46,7 +55,7 @@ public class RegistroHospede extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RegistroHospede frame = new RegistroHospede();
+					RegistroHospede frame = new RegistroHospede(reservaId);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,8 +67,11 @@ public class RegistroHospede extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RegistroHospede(Integer id) {
+	public RegistroHospede(Integer reservaId) {
 		
+		RegistroHospede.reservaId = reservaId;
+		hospedeController = new HospedeController();
+		reservaController = new ReservaController();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHospede.class.getResource("/imagenes/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 634);
@@ -241,6 +253,7 @@ public class RegistroHospede extends JFrame {
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtNreserva.setText(reservaId.toString());
 		contentPane.add(txtNreserva);
 		
 		JSeparator separator_1_2 = new JSeparator();
@@ -284,6 +297,7 @@ public class RegistroHospede extends JFrame {
 		btnsalvar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				salvarHospede();
 			}
 		});
 		btnsalvar.setLayout(null);
@@ -326,5 +340,43 @@ public class RegistroHospede extends JFrame {
 	        int y = evt.getYOnScreen();
 	        this.setLocation(x - xMouse, y - yMouse);
 }
+	    
+	    private void salvarHospede() {
+	    	String nome = txtNome.getText();
+	    	String sobrenome = txtSobrenome.getText();
+	    	String dataNascimento = ((JTextField)txtDataN.getDateEditor().getUiComponent()).getText();
+	    	String nacionalidade = txtNacionalidade.getSelectedItem().toString();
+	    	String telefone = txtTelefone.getText();
+	    	Integer reserva_id = Integer.parseInt(txtNreserva.getText());
+	    	
+	    	Hospede novoHospede = new Hospede(
+	    			nome,
+	    			sobrenome,
+	    			Date.valueOf(dataNascimento),
+	    			nacionalidade,
+	    			telefone,
+	    			reservaController.buscarPorId(reserva_id));
+	    	
+	    	hospedeController.salvar(novoHospede);
+	    	
+	    	String mensagem = "Registro Salvo! Hospede " + novoHospede.getNome() + " cadastrado."
+	    			+ "\nDeseja cadastrar outra pessoa?";
+	    	
+	    	if(JOptionPane.showConfirmDialog(contentPane, mensagem, "Cadastrar Hospede", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+	    		MenuUsuario usuario = new MenuUsuario();
+				usuario.setVisible(true);
+				dispose();
+	    	} else {
+	    		limpaJTextFields();
+	    	}
+	    	
+	    	
+	    }
+	    private void limpaJTextFields() {
+	    	txtNome.setText("");
+	    	txtSobrenome.setText("");
+	    	txtDataN.cleanup();
+	    	txtTelefone.setText("");
+	    }
 											
 }
