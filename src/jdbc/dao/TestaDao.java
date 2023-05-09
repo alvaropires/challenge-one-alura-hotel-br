@@ -13,6 +13,7 @@ public class TestaDao {
 		Connection con = new ConnectionFactory().recuperarConexao();
 		
 		ReservaDao reservasDao = new ReservaDao(con);
+		HospedeDao hospedeDao = new HospedeDao(con);
 		
 //		List<Reservas> reservasAntes = reservasDao.listar();
 //		
@@ -24,8 +25,7 @@ public class TestaDao {
 //		reservasAntes.forEach(reserva-> System.out.println(reserva));
 //		reservasDepois.forEach(reserva-> System.out.println(reserva));
 		
-		reservasDao.deletaPorId(5);
-		reservasDao.listar().forEach(reserva->System.out.println(reserva));
+		hospedeDao.listar().forEach(hospede->System.out.println(hospede));
 		
 
 	}

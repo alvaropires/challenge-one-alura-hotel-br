@@ -6,12 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/jcalendar-1.4/lib/junit-4.6.jar"/>
-	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/jcalendar-1.4/lib/jgoodies-looks-2.4.1.jar"/>
-	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/jcalendar-1.4/lib/jgoodies-common-1.2.0.jar"/>
-	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/jcalendar-1.4/lib/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/jars para jdbc/c3p0-0.9.5.4.jar"/>
-	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/jars para jdbc/mchange-commons-java-0.2.16.jar"/>
-	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/mysql-connector-java-8.0.17.jar"/>
+	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/challenge-one-alura-hotel-br/JARS/mysql-connector-java-8.0.17.jar"/>
+	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/challenge-one-alura-hotel-br/JARS/mchange-commons-java-0.2.16.jar"/>
+	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/challenge-one-alura-hotel-br/JARS/c3p0-0.9.5.4.jar"/>
+	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/challenge-one-alura-hotel-br/JARS/jcalendar-1.4/lib/junit-4.6.jar"/>
+	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/challenge-one-alura-hotel-br/JARS/jcalendar-1.4/lib/jgoodies-looks-2.4.1.jar"/>
+	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/challenge-one-alura-hotel-br/JARS/jcalendar-1.4/lib/jgoodies-common-1.2.0.jar"/>
+	<classpathentry kind="lib" path="/home/alvaro/eclipse-workspace/challenge-one-alura-hotel-br/JARS/jcalendar-1.4/lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
