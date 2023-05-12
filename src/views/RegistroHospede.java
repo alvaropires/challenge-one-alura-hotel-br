@@ -342,8 +342,8 @@ public class RegistroHospede extends JFrame {
 }
 	    
 	    private void salvarHospede() {
-	    	String nome = txtNome.getText();
-	    	String sobrenome = txtSobrenome.getText();
+	    	String nome = txtNome.getText().toUpperCase();
+	    	String sobrenome = txtSobrenome.getText().toUpperCase();
 	    	String dataNascimento = ((JTextField)txtDataN.getDateEditor().getUiComponent()).getText();
 	    	String nacionalidade = txtNacionalidade.getSelectedItem().toString();
 	    	String telefone = txtTelefone.getText();
@@ -359,8 +359,8 @@ public class RegistroHospede extends JFrame {
 	    	
 	    	hospedeController.salvar(novoHospede);
 	    	
-	    	String mensagem = "Registro Salvo! Hospede " + novoHospede.getNome() + " cadastrado."
-	    			+ "\nDeseja cadastrar outra pessoa?";
+	    	String mensagem = "Registro Salvo! Hospede " + novoHospede.getNome() + " vinculado a Reserva nº " + reserva_id + "."
+	    			+ "\nDeseja cadastrar novo hospede?";
 	    	
 	    	if(JOptionPane.showConfirmDialog(contentPane, mensagem, "Cadastrar Hospede", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
 	    		MenuUsuario usuario = new MenuUsuario();
