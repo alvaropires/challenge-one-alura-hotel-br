@@ -3,9 +3,9 @@ package jdbc.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 import jdbc.models.Hospede;
 
@@ -31,11 +31,7 @@ public class HospedeDao {
 				
 				try(ResultSet rst = pstm.getResultSet()){
 					
-					while(rst.next()) {
-						Hospede hospede = new Hospede(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getDate(4), rst.getString(5),
-								rst.getString(6), reservaDao.buscarPorId(rst.getInt(7)));
-						hospedes.add(hospede);						
-					}
+					transformaResultSetEmHospede(hospedes, rst);					
 				}
 			}
 			return hospedes;
@@ -43,6 +39,25 @@ public class HospedeDao {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public List<Hospede> listarPorSobrenome(String sobrenome){
+		try {
+			String sql = "SELECT h.id, h.nome, h.sobrenome, h.data_nascimento, h.nacionalidade, h.telefone, h.reserva_id FROM hospedes h WHERE h.sobrenome LIKE ?";
+			List<Hospede> hospedes = new ArrayList<>();
+			
+			try(PreparedStatement pstm = connection.prepareStatement(sql)){
+				pstm.setString(1, "%" + sobrenome + "%");
+				pstm.execute();
+				
+				try(ResultSet rst = pstm.getResultSet()){
+					transformaResultSetEmHospede(hospedes, rst);
+				}
+			}return hospedes;
+		}catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	
 	public void salvar(Hospede hospede) {
 		try {
@@ -105,6 +120,21 @@ public class HospedeDao {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public void transformaResultSetEmHospede(List<Hospede> hospedes, ResultSet rst) throws SQLException {
+		while(rst.next()) {
+			Hospede hospede = new Hospede(
+					rst.getInt(1), 
+					rst.getString(2),
+					rst.getString(3),
+					rst.getDate(4),
+					rst.getString(5),
+					rst.getString(6),
+					reservaDao.buscarPorId(rst.getInt(7)));
+			hospedes.add(hospede);	
+		}
+	}
+	
 }
 
 

@@ -3,6 +3,7 @@ package jdbc.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +27,7 @@ public class ReservaDao {
 			try(PreparedStatement pstm = connection.prepareStatement(sql)){
 				pstm.execute();
 				
-				try(ResultSet rst = pstm.getResultSet()) {
-					while(rst.next()) {
-						Reserva reserva = new Reserva(rst.getInt(1), rst.getDate(2), rst.getDate(3),rst.getBigDecimal(4),rst.getString(5));
-						reservas.add(reserva);
-					}
-					
-				}
+				transformaResultSetEmReserva(reservas, pstm);
 				
 			}
 			
@@ -106,6 +101,12 @@ public class ReservaDao {
 		
 	}
 	
-	
-	
+	public void transformaResultSetEmReserva(List<Reserva> reservas, PreparedStatement pstm) throws SQLException {
+		try(ResultSet rst = pstm.getResultSet()){
+			while(rst.next()) {
+				Reserva reserva = new Reserva(rst.getInt(1), rst.getDate(2), rst.getDate(3), rst.getBigDecimal(4), rst.getString(5));
+				reservas.add(reserva);
+			}
+		}
+	}
 }

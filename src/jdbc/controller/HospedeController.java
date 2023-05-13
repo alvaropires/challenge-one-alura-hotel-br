@@ -24,6 +24,10 @@ public class HospedeController {
 		return this.hospedeDao.listar();
 	}
 	
+	public List<Hospede> listarPorSobrenome(String sobrenome){
+		return this.hospedeDao.listarPorSobrenome(sobrenome);
+	}
+	
 	public Hospede buscarPorId(Integer id) {
 		return this.hospedeDao.buscarPorId(id);
 	}
