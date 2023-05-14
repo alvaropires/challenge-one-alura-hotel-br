@@ -86,6 +86,25 @@ public class ReservaDao {
 		
 	}
 	
+	public void editaPorId(Integer id, Reserva reserva) {
+		try {
+			String sql = "UPDATE reservas SET data_entrada = ?, data_saida = ?, valor = ?, forma_pagamento = ? WHERE id = ?";
+			
+			try(PreparedStatement pstm = connection.prepareStatement(sql)){
+				pstm.setDate(1, reserva.getDataEntrada());
+				pstm.setDate(2, reserva.getDataSaida());
+				pstm.setBigDecimal(3, reserva.getValor());
+				pstm.setString(4, reserva.getFormaPagamento());
+				pstm.setInt(5, id);
+				pstm.execute();
+			}
+			
+		}catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
 	public void deletaPorId(Integer id){
 		try {
 			String sql = "DELETE FROM reservas WHERE id=?";

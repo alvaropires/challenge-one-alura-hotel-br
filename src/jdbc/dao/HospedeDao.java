@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdbc.models.Hospede;
+import jdbc.models.Reserva;
 
 public class HospedeDao {
 	
@@ -102,6 +103,26 @@ public class HospedeDao {
 				}
 			}
 			return hospede;
+		}catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void editaPorId(Integer id, Hospede hospede) {
+		try {
+			String sql = "UPDATE hospedes SET nome = ?, sobrenome = ?, data_nascimento = ?, nacionalidade = ?, telefone = ?, reserva_id = ? WHERE id = ?";
+			
+			try(PreparedStatement pstm = connection.prepareStatement(sql)){
+				pstm.setString(1, hospede.getNome());
+				pstm.setString(2, hospede.getSobrenome());
+				pstm.setDate(3, hospede.getDataNascimento());
+				pstm.setString(4, hospede.getNacionalidade());
+				pstm.setString(5, hospede.getTelefone());
+				pstm.setInt(6, hospede.getReserva().getId());
+				pstm.setInt(7, id);
+				pstm.execute();
+			}
+			
 		}catch(Exception e) {
 			throw new RuntimeException(e);
 		}

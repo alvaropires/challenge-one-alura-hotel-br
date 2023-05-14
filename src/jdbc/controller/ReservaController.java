@@ -28,6 +28,10 @@ public class ReservaController {
 		return this.reservaDao.listar();
 	}
 	
+	public void editaPorId(Integer id, Reserva reserva) {
+		this.reservaDao.editaPorId(id, reserva);
+	}
+	
 	public void deletar(Integer id) {
 		this.reservaDao.deletaPorId(id);
 	}

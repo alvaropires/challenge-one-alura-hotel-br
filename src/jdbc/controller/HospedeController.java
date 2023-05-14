@@ -31,6 +31,10 @@ public class HospedeController {
 	public Hospede buscarPorId(Integer id) {
 		return this.hospedeDao.buscarPorId(id);
 	}
+
+	public void editaPorId(Integer id, Hospede hospede) {
+		this.hospedeDao.editaPorId(id, hospede);
+	}
 	
 	public void deletarPorId(Integer id) {
 		this.hospedeDao.deletaPorId(id);

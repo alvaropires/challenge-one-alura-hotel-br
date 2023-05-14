@@ -28,6 +28,11 @@ import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -259,6 +264,21 @@ public class Buscar extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//TODO implementar o codigo que edita reserva e hospede.
+				if(panel.getSelectedIndex() == 0) {
+					Reserva reserva = instanciaReservaSelecionada();					
+					if(JOptionPane.showConfirmDialog(contentPane, "Deseja editar reserva nº " + reserva.getId() + "?", "Edita Reserva", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						reservaController.editaPorId(reserva.getId(), reserva);
+						limpaModeloTabelas(modelo);
+						populaTabelaReservas();
+					}
+				} else if(panel.getSelectedIndex() == 1) {
+					Hospede hospede = instanciaHospedeSelecionado();
+					if(JOptionPane.showConfirmDialog(contentPane, "Deseja editar hospede " + hospede.getNome() + "?", "Edita Hospede", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						hospedeController.editaPorId(hospede.getId(), hospede);
+						limpaModeloTabelas(modeloHospedes);
+						populaTabelaHospedes("");
+					}
+				}
 				
 			}
 			
@@ -361,10 +381,19 @@ public class Buscar extends JFrame {
 	    private void populaTabelaReservasPorId(String numeroReserva) {
 	    	Integer id = Integer.parseInt(numeroReserva);
 	    	try {
-	    		Reserva reserva = reservaController.buscarPorId(id);
+	    		Reserva reserva = this.reservaController.buscarPorId(id);
 	    		adicionaModeloReserva(modelo, reserva);
 	    	}catch(NullPointerException e) {
 	    		JOptionPane.showInternalMessageDialog(null, "Número de reserva " + id + " não existe. Digite um número de reserva válido!");
+	    	}catch(Exception e) {
+	    		throw new RuntimeException(e);
+	    	}
+	    }
+	    
+	    private void editaTabelaReservasPorId(String numeroReserva, Reserva novaReserva) {
+	    	Integer id = Integer.parseInt(numeroReserva);
+	    	try {
+	    		this.reservaController.editaPorId(id, novaReserva);
 	    	}catch(Exception e) {
 	    		throw new RuntimeException(e);
 	    	}
@@ -427,4 +456,48 @@ public class Buscar extends JFrame {
 					hospede.getReserva().getId()
 			});	 
 	    }
+	    
+	    private Reserva instanciaReservaSelecionada() {
+	    	try {
+	    		Integer linha = tbReservas.getSelectedRow();
+	    		Reserva reserva = new Reserva(
+	    				Integer.parseInt(tbReservas.getValueAt(linha, 0).toString()),
+	    				transformaStringEmDateSql(tbReservas.getValueAt(linha, 1).toString()),
+	    				transformaStringEmDateSql(tbReservas.getValueAt(linha,2).toString()), 
+	    				new BigDecimal(tbReservas.getValueAt(linha, 3).toString()), 
+	    				tbReservas.getValueAt(linha, 4).toString());
+	    		return reserva;	    		
+	    	}catch(Exception e) {
+	    		throw new RuntimeException(e);
+	    	}
+	    	
+	    }
+	    
+	    private Hospede instanciaHospedeSelecionado() {
+	    	try {
+	    		Integer linha = tbHospedes.getSelectedRow();
+	    		Hospede hospede = new Hospede(
+	    				Integer.parseInt(tbHospedes.getValueAt(linha, 0).toString()),
+	    				tbHospedes.getValueAt(linha, 1).toString(),
+	    				tbHospedes.getValueAt(linha, 2).toString(),
+	    				transformaStringEmDateSql(tbHospedes.getValueAt(linha, 3).toString()),
+	    				tbHospedes.getValueAt(linha, 4).toString(),
+	    				tbHospedes.getValueAt(linha, 5).toString(),
+	    				reservaController.buscarPorId(Integer.parseInt(tbHospedes.getValueAt(linha, 6).toString())));
+	    		return hospede;
+	    	}catch(Exception e) {
+	    		throw new RuntimeException(e);
+	    	}
+	    }
+	    
+	    private Date transformaStringEmDateSql(String dataString) {
+	    	try{
+	    		DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+	    		Date data = new Date(fmt.parse(dataString).getTime());
+	    		return data;
+	    	}catch(Exception e) {
+	    		throw new RuntimeException(e);
+	    	}
+	    }
+	    
 }
