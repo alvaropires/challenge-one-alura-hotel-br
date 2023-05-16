@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import com.toedter.calendar.JCalendar;
 
 import jdbc.models.Hospede;
 import jdbc.models.Reserva;
@@ -148,7 +151,7 @@ public class HospedeDao {
 					rst.getInt(1), 
 					rst.getString(2),
 					rst.getString(3),
-					rst.getDate(4),
+					rst.getDate(4, Calendar.getInstance()),
 					rst.getString(5),
 					rst.getString(6),
 					reservaDao.buscarPorId(rst.getInt(7)));

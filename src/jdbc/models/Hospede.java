@@ -14,7 +14,7 @@ public class Hospede {
 	
 	public Hospede(Integer id, String nome, String sobrenome, Date dataNascimento, String nacionalidade,
 			String telefone, Reserva reserva) {
-		super();
+		
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
@@ -26,7 +26,7 @@ public class Hospede {
 
 	public Hospede(String nome, String sobrenome, Date dataNascimento, String nacionalidade, String telefone,
 			Reserva reserva) {
-		super();
+		
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.dataNascimento = dataNascimento;

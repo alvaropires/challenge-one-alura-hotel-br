@@ -18,15 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.SystemColor;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.sql.Date;
 import java.text.Format;
-import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
@@ -43,7 +39,6 @@ public class EditaHospedeView extends JFrame {
 	private JTextField txtNreserva;
 	private JDateChooser txtDataN;
 	private JComboBox<Format> txtNacionalidade;
-	private JLabel labelExit;
 	int xMouse, yMouse;
 	private static Hospede hospede;
 
@@ -81,38 +76,6 @@ public class EditaHospedeView extends JFrame {
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		contentPane.setLayout(null);
-		
-		JPanel btnexit = new JPanel();
-		btnexit.setBounds(857, 0, 53, 36);
-		contentPane.add(btnexit);
-		btnexit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-//				MenuPrincipal principal = new MenuPrincipal();
-//				principal.setVisible(true);
-//				dispose();
-				System.exit(0);
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				btnexit.setBackground(Color.red);
-				labelExit.setForeground(Color.white);
-			}			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				 btnexit.setBackground(Color.white);
-			     labelExit.setForeground(Color.black);
-			}
-		});
-		btnexit.setLayout(null);
-		btnexit.setBackground(Color.white);
-		
-		labelExit = new JLabel("X");
-		labelExit.setBounds(0, 0, 53, 36);
-		btnexit.add(labelExit);
-		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
-		labelExit.setForeground(SystemColor.black);
-		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 		
 		
 		txtNome = new JTextField();
@@ -188,7 +151,7 @@ public class EditaHospedeView extends JFrame {
 		txtTelefone.setText(hospede.getTelefone());
 		contentPane.add(txtTelefone);
 		
-		JLabel lblTitulo = new JLabel("REGISTRO HÓSPEDE");
+		JLabel lblTitulo = new JLabel("EDITAR HÓSPEDE");
 		lblTitulo.setBounds(606, 55, 234, 42);
 		lblTitulo.setForeground(new Color(12, 138, 199));
 		lblTitulo.setFont(new Font("Roboto Black", Font.PLAIN, 23));
@@ -247,7 +210,7 @@ public class EditaHospedeView extends JFrame {
 		contentPane.add(separator_1_2_5);
 		
 		JPanel btnsalvar = new JPanel();
-		btnsalvar.setBounds(723, 560, 122, 35);
+		btnsalvar.setBounds(570, 540, 122, 35);
 		btnsalvar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -264,11 +227,11 @@ public class EditaHospedeView extends JFrame {
 		btnsalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		
 		JLabel labelSalvar = new JLabel("SALVAR");
+		labelSalvar.setBounds(0, 0, 122, 35);
+		btnsalvar.add(labelSalvar);
 		labelSalvar.setHorizontalAlignment(SwingConstants.CENTER);
 		labelSalvar.setForeground(Color.WHITE);
 		labelSalvar.setFont(new Font("Roboto", Font.PLAIN, 18));
-		labelSalvar.setBounds(0, 0, 122, 35);
-		btnsalvar.add(labelSalvar);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 489, 634);
@@ -285,6 +248,30 @@ public class EditaHospedeView extends JFrame {
 		logo.setBounds(194, 39, 104, 107);
 		panel.add(logo);
 		logo.setIcon(new ImageIcon(EditaHospedeView.class.getResource("/imagenes/Ha-100px.png")));
+		
+		JPanel btnCancelar = new JPanel();
+		btnCancelar.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Buscar buscar = new Buscar();
+				buscar.setVisible(true);
+				dispose();
+			}
+			
+		});
+		btnCancelar.setLayout(null);
+		btnCancelar.setBackground(Color.RED);
+		btnCancelar.setBounds(727, 540, 122, 35);
+		contentPane.add(btnCancelar);
+		btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		
+		JLabel labelCancelar = new JLabel("CANCELAR");
+		labelCancelar.setBounds(0, 0, 122, 35);
+		btnCancelar.add(labelCancelar);
+		labelCancelar.setHorizontalAlignment(SwingConstants.CENTER);
+		labelCancelar.setForeground(Color.WHITE);
+		labelCancelar.setFont(new Font("Dialog", Font.PLAIN, 18));
 	}
 	    
 	    private void editarHospede() {
@@ -314,11 +301,4 @@ public class EditaHospedeView extends JFrame {
 	    	dispose();
 	    	
 	    }
-	    private void limpaJTextFields() {
-	    	txtNome.setText("");
-	    	txtSobrenome.setText("");
-	    	txtDataN.cleanup();
-	    	txtTelefone.setText("");
-	    }
-											
 }

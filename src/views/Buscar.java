@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 
 import jdbc.controller.HospedeController;
 import jdbc.controller.ReservaController;
+import jdbc.exceptions.HospedeNaoSelecionadoException;
+import jdbc.exceptions.ReservaNaoSelecionadaException;
 import jdbc.models.Hospede;
 import jdbc.models.Reserva;
 
@@ -20,6 +22,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Panel;
+
 import javax.swing.JTabbedPane;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
@@ -229,12 +233,12 @@ public class Buscar extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				limpaModeloTabelas(modelo);
 				limpaModeloTabelas(modeloHospedes);
-				panel.setSelectedIndex(0);
 				String conteudoBuscar = txtBuscar.getText();
 				
 				if(conteudoBuscar.isEmpty()) {
 					populaTabelaReservas();
 					populaTabelaHospedes();	
+					panel.setSelectedIndex(0);
 				}else if(conteudoBuscar.matches("[0-9]+")) {
 					populaTabelaReservasPorId(conteudoBuscar);
 					panel.setSelectedIndex(0);;
@@ -304,7 +308,7 @@ public class Buscar extends JFrame {
 					int id = idDaLinhaSelecionada(tbReservas);
 					if(JOptionPane.showConfirmDialog(contentPane, "Deseja excluir a reserva nº " + id + "?", "Excluir Reserva", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 						deletaRegistroReserva(id);
-						JOptionPane.showInternalMessageDialog(contentPane, "Reserva nº " + id + " excluída com sucesso!");
+						JOptionPane.showInternalMessageDialog(null, "Reserva nº " + id + " excluída com sucesso!");
 						limpaModeloTabelas(modelo);
 						populaTabelaReservas();
 					}
@@ -314,7 +318,7 @@ public class Buscar extends JFrame {
 					int id = idDaLinhaSelecionada(tbHospedes);
 					if(JOptionPane.showConfirmDialog(contentPane, "Deseja excluir o hospede " + nome + "?", "Excluir Hospede", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 						deletaRegistroHospede(id);
-						JOptionPane.showInternalMessageDialog(contentPane, "Hospede " + nome + " excluido com sucesso!");
+						JOptionPane.showInternalMessageDialog(null, "Hospede " + nome + " excluido com sucesso!");
 						limpaModeloTabelas(modeloHospedes);
 						populaTabelaHospedes();
 					}
@@ -406,7 +410,6 @@ public class Buscar extends JFrame {
 	    		for(Hospede hospede: hospedes) {
 	    			adicionaModeloHospede(modeloHospedes, hospede);
 	    		}
-	    		
 	    	}catch(Exception e) {
 	    		throw new RuntimeException(e);
 	    	}
@@ -474,7 +477,12 @@ public class Buscar extends JFrame {
 	    				new BigDecimal(tbReservas.getValueAt(linha, 3).toString()), 
 	    				tbReservas.getValueAt(linha, 4).toString());
 	    		return reserva;	    		
-	    	}catch(Exception e) {
+	    	}catch(ArrayIndexOutOfBoundsException e) {
+	    		JOptionPane.showMessageDialog(null, "Nenhuma reserva foi selecionada! Selecione uma reserva válida.");
+	    		throw new ReservaNaoSelecionadaException();
+	    	}
+	    	
+	    	catch(Exception e) {
 	    		throw new RuntimeException(e);
 	    	}
 	    	
@@ -492,7 +500,12 @@ public class Buscar extends JFrame {
 	    				tbHospedes.getValueAt(linha, 5).toString(),
 	    				reservaController.buscarPorId(Integer.parseInt(tbHospedes.getValueAt(linha, 6).toString())));
 	    		return hospede;
-	    	}catch(Exception e) {
+	    	}catch(ArrayIndexOutOfBoundsException e) {
+	    		JOptionPane.showMessageDialog(null, "Nenhum hóspede selecionado! Selecione um hóspede válido.");
+	    		throw new HospedeNaoSelecionadoException();
+	    	}
+	    	
+	    	catch(Exception e) {
 	    		throw new RuntimeException(e);
 	    	}
 	    }

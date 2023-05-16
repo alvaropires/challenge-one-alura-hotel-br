@@ -307,7 +307,11 @@ public class ReservasView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (ReservasView.txtDataE.getDate() != null && ReservasView.txtDataS.getDate() != null) {		
-					salvarReserva();
+					if(Integer.parseInt(txtValor.getText()) > 0) {
+						salvarReserva();
+					}else {
+						JOptionPane.showMessageDialog(null, "Data de Check out deve ser posterior a Data de Check in.");
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Deve preencher todos os campos.");
 				}

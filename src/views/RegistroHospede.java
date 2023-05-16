@@ -380,8 +380,9 @@ public class RegistroHospede extends JFrame {
 	    private void limpaJTextFields() {
 	    	txtNome.setText("");
 	    	txtSobrenome.setText("");
-	    	txtDataN.cleanup();
+	    	txtDataN.setDate(null);
 	    	txtTelefone.setText("");
+	    	txtNacionalidade.setSelectedIndex(0);
 	    }
 											
 }
