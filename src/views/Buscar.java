@@ -233,7 +233,7 @@ public class Buscar extends JFrame {
 				
 				if(conteudoBuscar.isEmpty()) {
 					populaTabelaReservas();
-					populaTabelaHospedes(conteudoBuscar);	
+					populaTabelaHospedes();	
 				}else if(conteudoBuscar.matches("[0-9]+")) {
 					populaTabelaReservasPorId(conteudoBuscar);
 					panel.setSelectedIndex(0);;
@@ -265,18 +265,18 @@ public class Buscar extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				//TODO implementar o codigo que edita reserva e hospede.
 				if(panel.getSelectedIndex() == 0) {
+
 					Reserva reserva = instanciaReservaSelecionada();					
-					if(JOptionPane.showConfirmDialog(contentPane, "Deseja editar reserva nº " + reserva.getId() + "?", "Edita Reserva", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						reservaController.editaPorId(reserva.getId(), reserva);
-						limpaModeloTabelas(modelo);
-						populaTabelaReservas();
-					}
+					EditaReservasView editaReserva = new EditaReservasView(reserva);
+					editaReserva.setVisible(true);
+					dispose();
+					
 				} else if(panel.getSelectedIndex() == 1) {
 					Hospede hospede = instanciaHospedeSelecionado();
 					if(JOptionPane.showConfirmDialog(contentPane, "Deseja editar hospede " + hospede.getNome() + "?", "Edita Hospede", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 						hospedeController.editaPorId(hospede.getId(), hospede);
 						limpaModeloTabelas(modeloHospedes);
-						populaTabelaHospedes("");
+						populaTabelaHospedes();
 					}
 				}
 				
@@ -317,7 +317,7 @@ public class Buscar extends JFrame {
 						deletaRegistroHospede(id);
 						JOptionPane.showInternalMessageDialog(contentPane, "Hospede " + nome + " excluido com sucesso!");
 						limpaModeloTabelas(modeloHospedes);
-						populaTabelaHospedes("");
+						populaTabelaHospedes();
 					}
 				}
 			}
@@ -365,7 +365,7 @@ public class Buscar extends JFrame {
 	    	return this.hospedeController.listar();
 	    }
 	    
-	    private void populaTabelaReservas() {
+	    public void populaTabelaReservas() {
 	    	List<Reserva> reservas = listarReservas();
 	    	
 	    	try {
@@ -400,17 +400,25 @@ public class Buscar extends JFrame {
 	    }
 	    
 	    
-	    
-	    
-	    private void populaTabelaHospedes(String sobrenome) {
-	    	List<Hospede> hospedes = new ArrayList<>();
-	    	if(sobrenome.isEmpty()) {
-	    		hospedes = this.listarHospedes();	    		
-	    	}else {
-	    		hospedes = this.hospedeController.listarPorSobrenome(sobrenome);
+	    public void populaTabelaHospedes() {
+	    	try {
+	    		List<Hospede> hospedes = new ArrayList<>();
+	    		hospedes = this.listarHospedes();
+	    		for(Hospede hospede: hospedes) {
+	    			adicionaModeloHospede(modeloHospedes, hospede);
+	    		}
+	    		
+	    	}catch(Exception e) {
+	    		throw new RuntimeException(e);
 	    	}
 	    	
+	    	
+	    }
+	    
+	    public void populaTabelaHospedes(String sobrenome) {
 	    	try {
+	    		List<Hospede> hospedes = new ArrayList<>();
+	    		hospedes = this.hospedeController.listarPorSobrenome(sobrenome);
 	    		for(Hospede hospede : hospedes) {
 	    			adicionaModeloHospede(modeloHospedes, hospede);			
 	    		}
