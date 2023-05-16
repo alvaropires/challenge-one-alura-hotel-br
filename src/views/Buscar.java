@@ -229,6 +229,7 @@ public class Buscar extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				limpaModeloTabelas(modelo);
 				limpaModeloTabelas(modeloHospedes);
+				panel.setSelectedIndex(0);
 				String conteudoBuscar = txtBuscar.getText();
 				
 				if(conteudoBuscar.isEmpty()) {
@@ -273,11 +274,9 @@ public class Buscar extends JFrame {
 					
 				} else if(panel.getSelectedIndex() == 1) {
 					Hospede hospede = instanciaHospedeSelecionado();
-					if(JOptionPane.showConfirmDialog(contentPane, "Deseja editar hospede " + hospede.getNome() + "?", "Edita Hospede", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						hospedeController.editaPorId(hospede.getId(), hospede);
-						limpaModeloTabelas(modeloHospedes);
-						populaTabelaHospedes();
-					}
+					EditaHospedeView editaHospede = new EditaHospedeView(hospede);
+					editaHospede.setVisible(true);
+					dispose();
 				}
 				
 			}

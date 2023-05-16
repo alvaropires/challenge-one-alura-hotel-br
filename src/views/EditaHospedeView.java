@@ -32,7 +32,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 
 @SuppressWarnings("serial")
-public class RegistroHospede extends JFrame {
+public class EditaHospedeView extends JFrame {
 
 	private HospedeController hospedeController;
 	private ReservaController reservaController;
@@ -44,9 +44,8 @@ public class RegistroHospede extends JFrame {
 	private JDateChooser txtDataN;
 	private JComboBox<Format> txtNacionalidade;
 	private JLabel labelExit;
-	private JLabel labelAtras;
 	int xMouse, yMouse;
-	private static Integer reservaId;
+	private static Hospede hospede;
 
 	/**
 	 * Launch the application.
@@ -55,7 +54,7 @@ public class RegistroHospede extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RegistroHospede frame = new RegistroHospede(reservaId);
+					EditaHospedeView frame = new EditaHospedeView(EditaHospedeView.hospede);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -67,12 +66,12 @@ public class RegistroHospede extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RegistroHospede(Integer reservaId) {
+	public EditaHospedeView(Hospede hospede) {
 		
-		RegistroHospede.reservaId = reservaId;
+		EditaHospedeView.hospede = hospede;
 		hospedeController = new HospedeController();
 		reservaController = new ReservaController();
-		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHospede.class.getResource("/imagenes/lOGO-50PX.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(EditaHospedeView.class.getResource("/imagenes/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 634);
 		contentPane = new JPanel();
@@ -83,31 +82,16 @@ public class RegistroHospede extends JFrame {
 		setUndecorated(true);
 		contentPane.setLayout(null);
 		
-		JPanel header = new JPanel();
-		header.setBounds(-54, 0, 910, 36);
-		header.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				headerMouseDragged(e);
-			     
-			}
-		});
-		header.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				headerMousePressed(e);
-			}
-		});
-		
 		JPanel btnexit = new JPanel();
 		btnexit.setBounds(857, 0, 53, 36);
 		contentPane.add(btnexit);
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuPrincipal principal = new MenuPrincipal();
-				principal.setVisible(true);
-				dispose();
+//				MenuPrincipal principal = new MenuPrincipal();
+//				principal.setVisible(true);
+//				dispose();
+				System.exit(0);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -129,42 +113,6 @@ public class RegistroHospede extends JFrame {
 		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
 		labelExit.setForeground(SystemColor.black);
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
-		header.setLayout(null);
-		header.setBackground(SystemColor.text);
-		header.setOpaque(false);
-		header.setBounds(0, 0, 910, 36);
-		contentPane.add(header);
-		
-		JPanel btnAtras = new JPanel();
-		btnAtras.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ReservasView reservas = new ReservasView();
-				reservas.setVisible(true);
-				dispose();				
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				btnAtras.setBackground(Color.white);
-				labelAtras.setForeground(Color.black);
-			}			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				 btnAtras.setBackground(new Color(12, 138, 199));
-			     labelAtras.setForeground(Color.white);
-			}
-		});
-		btnAtras.setLayout(null);
-		btnAtras.setBackground(new Color(12, 138, 199));
-		btnAtras.setBounds(0, 0, 53, 36);
-		header.add(btnAtras);
-		
-		labelAtras = new JLabel("<");
-		labelAtras.setHorizontalAlignment(SwingConstants.CENTER);
-		labelAtras.setForeground(Color.WHITE);
-		labelAtras.setFont(new Font("Roboto", Font.PLAIN, 23));
-		labelAtras.setBounds(0, 0, 53, 36);
-		btnAtras.add(labelAtras);
 		
 		
 		txtNome = new JTextField();
@@ -173,6 +121,7 @@ public class RegistroHospede extends JFrame {
 		txtNome.setBackground(Color.WHITE);
 		txtNome.setColumns(10);
 		txtNome.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtNome.setText(hospede.getNome());
 		contentPane.add(txtNome);
 		
 		txtSobrenome = new JTextField();
@@ -181,13 +130,15 @@ public class RegistroHospede extends JFrame {
 		txtSobrenome.setColumns(10);
 		txtSobrenome.setBackground(Color.WHITE);
 		txtSobrenome.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtSobrenome.setText(hospede.getSobrenome());
 		contentPane.add(txtSobrenome);
 		
 		txtDataN = new JDateChooser();
 		txtDataN.setBounds(560, 278, 285, 36);
-		txtDataN.getCalendarButton().setIcon(new ImageIcon(RegistroHospede.class.getResource("/imagenes/icon-reservas.png")));
+		txtDataN.getCalendarButton().setIcon(new ImageIcon(EditaHospedeView.class.getResource("/imagenes/icon-reservas.png")));
 		txtDataN.getCalendarButton().setBackground(SystemColor.textHighlight);
 		txtDataN.setDateFormatString("yyyy-MM-dd");
+		txtDataN.setDate(hospede.getDataNascimento());
 		contentPane.add(txtDataN);
 		
 		txtNacionalidade = new JComboBox();
@@ -195,6 +146,7 @@ public class RegistroHospede extends JFrame {
 		txtNacionalidade.setBackground(SystemColor.text);
 		txtNacionalidade.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNacionalidade.setModel(new DefaultComboBoxModel(new String[] {"alemão", "andorrano", "angolano", "antiguano", "saudita", "argelino", "argentino", "armênio", "australiano", "austríaco", "azerbaijano", "bahamense", "bangladês, bangladense", "barbadiano", "bahreinita", "belga", "belizenho", "beninês", "belarusso", "boliviano", "bósnio", "botsuanês", "brasileiro", "bruneíno", "búlgaro", "burkineonse, burkinabé", "burundês", "butanês", "cabo-verdiano", "camerounês", "cambojano", "catariano", "canadense", "cazaque", "chadiano", "chileno", "chinês", "cipriota", "colombiano", "comoriano", "congolês", "congolês", "sul-coreano", "norte-coreano", "costa-marfinense, marfinense", "costa-ricense", "croata", "cubano", "dinamarquês", "djiboutiano", "dominiquense", "egípcio", "salvadorenho", "emiradense, emirático", "equatoriano", "eritreu", "eslovaco", "esloveno", "espanhol", "estadunidense, (norte-)americano", "estoniano", "etíope", "fijiano", "filipino", "finlandês", "francês", "gabonês", "gambiano", "ganês ou ganense", "georgiano", "granadino", "grego", "guatemalteco", "guianês", "guineense", "guineense, bissau-guineense", "equato-guineense", "haitiano", "hondurenho", "húngaro", "iemenita", "cookiano", "marshallês", "salomonense", "indiano", "indonésio", "iraniano", "iraquiano", "irlandês", "islandês", "34", "jamaicano", "japonês", "jordaniano", "kiribatiano", "kuwaitiano", "laosiano", "lesotiano", "letão", "libanês", "liberiano", "líbio", "liechtensteiniano", "lituano", "luxemburguês", "macedônio", "madagascarense", "malásio37", "malawiano", "maldivo", "maliano", "maltês", "marroquino", "mauriciano", "mauritano", "mexicano", "myanmarense", "micronésio", "moçambicano", "moldovo", "monegasco", "mongol", "montenegrino", "namibiano", "nauruano", "nepalês", "nicaraguense", "nigerino", "nigeriano", "niuiano", "norueguês", "neozelandês", "omani", "neerlandês", "palauano", "palestino", "panamenho", "papua, papuásio", "paquistanês", "paraguaio", "peruano", "polonês, polaco", "português", "queniano", "quirguiz", "britânico", "centro-africano", "tcheco", "dominicano", "romeno", "ruandês", "russo", "samoano", "santa-lucense", "são-cristovense", "samarinês", "santomense", "são-vicentino", "seichelense", "senegalês", "sérvio", "singapurense", "sírio", "somaliano, somali", "sri-lankês", "suázi", "sudanês", "sul-sudanês", "sueco", "suíço", "surinamês", "tajique", "tailandês", "tanzaniano", "timorense", "togolês", "tonganês", "trinitário", "tunisiano", "turcomeno", "turco", "tuvaluano", "ucraniano", "ugandês", "uruguaio", "uzbeque", "vanuatuense", "vaticano", "venezuelano", "vietnamita", "zambiano", "zimbabueano"}));
+		txtNacionalidade.getModel().setSelectedItem(hospede.getNacionalidade());
 		contentPane.add(txtNacionalidade);
 		
 		JLabel lblNome = new JLabel("NOME");
@@ -233,6 +185,7 @@ public class RegistroHospede extends JFrame {
 		txtTelefone.setColumns(10);
 		txtTelefone.setBackground(Color.WHITE);
 		txtTelefone.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtTelefone.setText(hospede.getTelefone());
 		contentPane.add(txtTelefone);
 		
 		JLabel lblTitulo = new JLabel("REGISTRO HÓSPEDE");
@@ -248,12 +201,13 @@ public class RegistroHospede extends JFrame {
 		contentPane.add(lblNumeroReserva);
 		
 		txtNreserva = new JTextField();
+		txtNreserva.setEditable(false);
 		txtNreserva.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNreserva.setBounds(560, 495, 285, 33);
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		txtNreserva.setText(reservaId.toString());
+		txtNreserva.setText(hospede.getReserva().getId().toString());
 		contentPane.add(txtNreserva);
 		
 		JSeparator separator_1_2 = new JSeparator();
@@ -298,9 +252,9 @@ public class RegistroHospede extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(txtNome != null && txtSobrenome != null && txtDataN != null && txtNacionalidade != null && txtTelefone != null) {
-					salvarHospede();
-				} else {
-					JOptionPane.showMessageDialog(null, "Deve preencher todos os campos.");
+					editarHospede();
+				}else {
+					JOptionPane.showMessageDialog(contentPane, "Deve preencher todos os campos");
 				}
 			}
 		});
@@ -325,31 +279,18 @@ public class RegistroHospede extends JFrame {
 		JLabel imageFundo = new JLabel("");
 		imageFundo.setBounds(0, 121, 479, 502);
 		panel.add(imageFundo);
-		imageFundo.setIcon(new ImageIcon(RegistroHospede.class.getResource("/imagenes/registro.png")));
+		imageFundo.setIcon(new ImageIcon(EditaHospedeView.class.getResource("/imagenes/registro.png")));
 		
 		JLabel logo = new JLabel("");
 		logo.setBounds(194, 39, 104, 107);
 		panel.add(logo);
-		logo.setIcon(new ImageIcon(RegistroHospede.class.getResource("/imagenes/Ha-100px.png")));
+		logo.setIcon(new ImageIcon(EditaHospedeView.class.getResource("/imagenes/Ha-100px.png")));
 	}
-	
-	//Código que permite movimentar a janela pela tela seguindo a posição de "x" y "y"
-	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
-	        xMouse = evt.getX();
-	        yMouse = evt.getY();
-	    }
-
-	    private void headerMouseDragged(java.awt.event.MouseEvent evt) {
-	        int x = evt.getXOnScreen();
-	        int y = evt.getYOnScreen();
-	        this.setLocation(x - xMouse, y - yMouse);
-}
 	    
-	    private void salvarHospede() {
+	    private void editarHospede() {
 	    	String nome = txtNome.getText().toUpperCase();
 	    	String sobrenome = txtSobrenome.getText().toUpperCase();
 	    	String dataNascimento = ((JTextField)txtDataN.getDateEditor().getUiComponent()).getText();
-	    	System.out.println(dataNascimento);
 	    	String nacionalidade = txtNacionalidade.getSelectedItem().toString();
 	    	String telefone = txtTelefone.getText();
 	    	Integer reserva_id = Integer.parseInt(txtNreserva.getText());
@@ -362,19 +303,15 @@ public class RegistroHospede extends JFrame {
 	    			telefone,
 	    			reservaController.buscarPorId(reserva_id));
 	    	
-	    	hospedeController.salvar(novoHospede);
+	    	hospedeController.editaPorId(hospede.getId(), novoHospede);
 	    	
-	    	String mensagem = "Registro Salvo! Hospede " + novoHospede.getNome() + " vinculado a Reserva nº " + reserva_id + "."
-	    			+ "\nDeseja cadastrar novo hospede?";
+	    	JOptionPane.showMessageDialog(contentPane, "Hospede " + novoHospede.getNome() + " editado com sucesso!");
 	    	
-	    	if(JOptionPane.showConfirmDialog(contentPane, mensagem, "Cadastrar Hospede", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
-	    		MenuUsuario usuario = new MenuUsuario();
-				usuario.setVisible(true);
-				dispose();
-	    	} else {
-	    		limpaJTextFields();
-	    	}
-	    	
+	    	Buscar buscar = new Buscar();
+	    	buscar.populaTabelaReservas();
+	    	buscar.populaTabelaHospedes();
+	    	buscar.setVisible(true);
+	    	dispose();
 	    	
 	    }
 	    private void limpaJTextFields() {
