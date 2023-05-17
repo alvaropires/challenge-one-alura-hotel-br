@@ -38,6 +38,27 @@
 
 
 
+## Descrição do projeto
+
+---
+
+## Funcionalidades
+
+---
+
+## Layout da Aplicação
+
+---
+
+## Como rodar a aplicação :arrow_forward:
+
+---
+
+## Desenvolvedor :octocat:
+
+[<img src="https://avatars.githubusercontent.com/u/94912998?s=96&v=4" width=115><br><sub>Alvaro Pires Santos</sub>](https://github.com/alvaropires)
+
+
      
 ## 📬 Entrega
 
