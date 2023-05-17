@@ -317,8 +317,6 @@ public class EditaReservasView extends JFrame {
 	    	
 	    	
 	    	Buscar buscar = new Buscar();
-	    	buscar.populaTabelaReservas();
-	    	buscar.populaTabelaHospedes();
 	    	buscar.setVisible(true);
 	    	dispose();
 	    	

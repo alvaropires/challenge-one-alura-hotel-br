@@ -133,7 +133,7 @@ public class Buscar extends JFrame {
 		modeloHospedes.addColumn("Telefone");
 		modeloHospedes.addColumn("Numero de Reserva");
 		JScrollPane scroll_tableHuespedes = new JScrollPane(tbHospedes);
-		panel.addTab("Huéspedes", new ImageIcon(Buscar.class.getResource("/imagenes/pessoas.png")), scroll_tableHuespedes, null);
+		panel.addTab("Hóspedes", new ImageIcon(Buscar.class.getResource("/imagenes/pessoas.png")), scroll_tableHuespedes, null);
 		scroll_tableHuespedes.setVisible(true);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
@@ -221,6 +221,8 @@ public class Buscar extends JFrame {
 		labelExit.setBounds(0, 0, 53, 36);
 		btnexit.add(labelExit);
 		
+		populaTabelasDoMenuBuscar();
+		
 		JSeparator separator_1_2 = new JSeparator();
 		separator_1_2.setForeground(new Color(12, 138, 199));
 		separator_1_2.setBackground(new Color(12, 138, 199));
@@ -236,8 +238,7 @@ public class Buscar extends JFrame {
 				String conteudoBuscar = txtBuscar.getText();
 				
 				if(conteudoBuscar.isEmpty()) {
-					populaTabelaReservas();
-					populaTabelaHospedes();	
+					populaTabelasDoMenuBuscar();
 					panel.setSelectedIndex(0);
 				}else if(conteudoBuscar.matches("[0-9]+")) {
 					populaTabelaReservasPorId(conteudoBuscar);
@@ -246,8 +247,6 @@ public class Buscar extends JFrame {
 					populaTabelaHospedes(conteudoBuscar);
 					panel.setSelectedIndex(1);
 				}
-				
-
 			}
 		});
 		btnbuscar.setLayout(null);
@@ -305,22 +304,18 @@ public class Buscar extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(panel.getSelectedIndex() == 0) {
-					int id = idDaLinhaSelecionada(tbReservas);
-					if(JOptionPane.showConfirmDialog(contentPane, "Deseja excluir a reserva nº " + id + "?", "Excluir Reserva", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						deletaRegistroReserva(id);
-						JOptionPane.showInternalMessageDialog(null, "Reserva nº " + id + " excluída com sucesso!");
-						limpaModeloTabelas(modelo);
-						populaTabelaReservas();
+					Reserva reserva = instanciaReservaSelecionada();
+					if(JOptionPane.showConfirmDialog(contentPane, "Deseja excluir a reserva nº " + reserva.getId() + "?", "Excluir Reserva", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						deletaRegistroReserva(reserva.getId());
+						JOptionPane.showInternalMessageDialog(null, "Reserva nº " + reserva.getId() + " excluída com sucesso!");
+						populaTabelasDoMenuBuscar();
 					}
 				} else if(panel.getSelectedIndex() == 1) {
-					int linha = tbHospedes.getSelectedRow();
-					String nome = (String) tbHospedes.getValueAt(linha, 1);
-					int id = idDaLinhaSelecionada(tbHospedes);
-					if(JOptionPane.showConfirmDialog(contentPane, "Deseja excluir o hospede " + nome + "?", "Excluir Hospede", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						deletaRegistroHospede(id);
-						JOptionPane.showInternalMessageDialog(null, "Hospede " + nome + " excluido com sucesso!");
-						limpaModeloTabelas(modeloHospedes);
-						populaTabelaHospedes();
+					Hospede hospede = instanciaHospedeSelecionado();
+					if(JOptionPane.showConfirmDialog(contentPane, "Deseja excluir o hospede " + hospede.getNome() + "?", "Excluir Hospede", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						deletaRegistroHospede(hospede.getId());
+						JOptionPane.showInternalMessageDialog(null, "Hospede " + hospede.getNome() + " excluido com sucesso!");
+						populaTabelasDoMenuBuscar();
 					}
 				}
 			}
@@ -436,6 +431,13 @@ public class Buscar extends JFrame {
 	    
 	    private void deletaRegistroHospede(Integer id) {
 	    	this.hospedeController.deletarPorId(id);
+	    }
+	    
+	    private void populaTabelasDoMenuBuscar() {
+	    	limpaModeloTabelas(modelo);
+	    	limpaModeloTabelas(modeloHospedes);
+	    	populaTabelaReservas();
+	    	populaTabelaHospedes();
 	    }
 	    
 	    

@@ -295,8 +295,6 @@ public class EditaHospedeView extends JFrame {
 	    	JOptionPane.showMessageDialog(contentPane, "Hospede " + novoHospede.getNome() + " editado com sucesso!");
 	    	
 	    	Buscar buscar = new Buscar();
-	    	buscar.populaTabelaReservas();
-	    	buscar.populaTabelaHospedes();
 	    	buscar.setVisible(true);
 	    	dispose();
 	    	
