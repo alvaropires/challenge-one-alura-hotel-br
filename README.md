@@ -59,8 +59,8 @@ Foi utilizada a Linguagem Java para elaboração do projeto e a APIJDBC para con
 
 ## SQL/BD
 
-O download do script que cria as tabelas necessárias para o projeto pode ser realizado a partir do link abaixo:
-[Script SQL para Criação das Tabelas](https://github.com/alvaropires/challenge-one-alura-hotel-br/blob/repositorio-base/script%20my_sql%20hotel_alura.sql)
+O script que cria as tabelas necessárias para o projeto pode ser obtido a partir do link abaixo:
+<a href="https://github.com/alvaropires/challenge-one-alura-hotel-br/blob/repositorio-base/script%20my_sql%20hotel_alura.sql" target="_blank">Script SQL para Criação das Tabelas</a>
 
 
 
