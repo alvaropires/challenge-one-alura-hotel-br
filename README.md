@@ -40,10 +40,20 @@
 
 ## Descrição do projeto
 
+O projeto trata-se de um sistema de gerenciamento de reservas e hóspede para um hotel com dados persistidos em um Banco de Dados MySQL. As tabelas do banco de dados seguem um padrão de colunas com ID(chave primária gerada de forma sequencial pelo banco).
+
+A busca permite a pesquisa de reservas pelo número de reserva e de hóspedes a partir do sobrenome, utilizando o mesmo campo de pesquisa. É possível a edição e exlusão dos dados, desde que exista algum registro selecionado.
+
+Foi utilizada a Linguagem Java para elaboração do projeto e a APIJDBC para conexão com o banco de dados. A interface gráfica foi desenvolvida utilizando a biblioteca Java Swing.
+
 ---
 
 ## Funcionalidades
-
+- Inclusão de reserva com cálculo automático do custo total das diárias
+- Inclusão de um ou mais hóspedes para cada reserva
+- Edição dos dados da reserva ou do hóspede a partir de seleção no menu de buscas
+- Exclusão dos dados da reserva ou do hóspede a partir de seleção no menu de buscas
+- Dados persistidos em Banco de Dados MySQL
 ---
 
 ## Layout da Aplicação
