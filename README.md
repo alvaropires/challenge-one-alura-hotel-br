@@ -40,7 +40,7 @@
 
 ## Descrição do projeto
 
-O projeto trata-se de um sistema de gerenciamento de reservas e hóspede para um hotel com dados persistidos em um Banco de Dados MySQL. As tabelas do banco de dados seguem um padrão de colunas com ID(chave primária gerada de forma sequencial pelo banco).
+O projeto trata-se de um sistema de gerenciamento de reservas e hóspede para um hotel com dados persistidos em um Banco de Dados MySQL. As tabelas do banco de dados seguem um padrão de colunas com ID(chave primária gerada de forma sequencial pelo banco). As funcionalidades estão acessíveis a partir de um login do usuário.
 
 A busca permite a pesquisa de reservas pelo número de reserva e de hóspedes a partir do sobrenome, utilizando o mesmo campo de pesquisa. É possível a edição e exlusão dos dados, desde que exista algum registro selecionado.
 
@@ -49,11 +49,24 @@ Foi utilizada a Linguagem Java para elaboração do projeto e a APIJDBC para con
 ---
 
 ## Funcionalidades
+- Login do Usuário
 - Inclusão de reserva com cálculo automático do custo total das diárias
 - Inclusão de um ou mais hóspedes para cada reserva
 - Edição dos dados da reserva ou do hóspede a partir de seleção no menu de buscas
 - Exclusão dos dados da reserva ou do hóspede a partir de seleção no menu de buscas
 - Dados persistidos em Banco de Dados MySQL
+---
+
+## SQL/BD
+
+O download do script que cria as tabelas necessárias para o projeto pode ser realizado a partir do link abaixo:
+[Script SQL para Criação das Tabelas](https://github.com/alvaropires/challenge-one-alura-hotel-br/blob/repositorio-base/script%20my_sql%20hotel_alura.sql)
+
+
+
+
+
+
 ---
 
 ## Layout da Aplicação
