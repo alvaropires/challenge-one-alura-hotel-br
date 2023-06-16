@@ -32,18 +32,6 @@
 - Biblioteca JCalendar
 - Plugin WindowBuilder </br>
 
----
-## ⚠️ Importante! ⚠️
-
-☕ Use o Java na versão 8 ou superior para ter compatibilidade. 
-</br></br>
-📝 Recomendamos utilizar o editor Eclipse para compatibilidade da interface gráfica. </br></br>
-🎨 A interface contém dois importantes métodos:
-- setResizable(false): determina o tamanho da janela, e através do parâmetro <strong>false</strong>, a tela não poderá ser maximizada;
-- setLocationRelativeTo(null): determina a localização da janela, e através do parâmetro <strong>null</strong> ele a mantém centralizada na tela.
-
-#### Para este desafio, concentre-se na parte lógica e de conexão com o Banco de Dados, após concluir o desafio, sinta-se a vontade para incluir novas funcionalidades e modificar a interface gráfica. 
-
 
 ---
 
