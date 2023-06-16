@@ -14,7 +14,7 @@
 
 :small_blue_diamond: [Funcionalidades](#funcionalidades)
 
-:small_blue_diamond: [SQL/Banco de Dados](#sql/banco-de-dados)
+:small_blue_diamond: [SQL/Banco de Dados](#sqlbanco-de-dados)
 
 :small_blue_diamond: [Layout da Aplicação](#layout-da-aplicação)
 
