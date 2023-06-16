@@ -6,14 +6,25 @@
 </p>
 
 ---
-##  Primeiros Passos:
 
-#### 🔹 Marque esse projeto com uma ⭐
-#### 🔹 Siga as orientações do que temos neste repositório 📚
-#### 🔹 Visite a página do desafio clicando aqui! [Link do Challenge](https://www.alura.com.br/challenges/oracle-one-back-end/hotelalura) 📃 
-</br>
+### Tópicos
+:small_blue_diamond: [Tecnologias Utilizadas](#tecnologias-utilizadas)
 
-## 🖥️ Tecnologias Utilizadas:
+:small_blue_diamond: [Descrição do Projeto](#descrição-do-projeto)
+
+:small_blue_diamond: [Funcionalidades](#funcionalidades)
+
+:small_blue_diamond: [SQL/Banco de Dados](#sql/banco-de-dados)
+
+:small_blue_diamond: [Layout da Aplicação](#layout-da-aplicação)
+
+:small_blue_diamond: [Como rodar a aplicação](#como-rodar-a-aplicação-arrow_forward)
+
+:small_blue_diamond: [Desenvolvedor](#desenvolvedor-octocat)
+
+---
+
+## Tecnologias Utilizadas
 
 - Java
 - Eclipse
@@ -49,12 +60,19 @@ Foi utilizada a Linguagem Java para elaboração do projeto e a APIJDBC para con
 ---
 
 ## Funcionalidades
-- Login do Usuário
-- Inclusão de reserva com cálculo automático do custo total das diárias
-- Inclusão de um ou mais hóspedes para cada reserva
-- Edição dos dados da reserva ou do hóspede a partir de seleção no menu de buscas
-- Exclusão dos dados da reserva ou do hóspede a partir de seleção no menu de buscas
-- Dados persistidos em Banco de Dados MySQL
+
+:heavy_check_mark: Login do Usuário
+
+:heavy_check_mark: Inclusão de reserva com cálculo automático do custo total das diárias
+
+:heavy_check_mark: Inclusão de um ou mais hóspedes para cada reserva
+
+:heavy_check_mark: Edição dos dados da reserva ou do hóspede a partir de seleção no menu de buscas
+
+:heavy_check_mark: Exclusão dos dados da reserva ou do hóspede a partir de seleção no menu de buscas
+
+:heavy_check_mark: Dados persistidos em Banco de Dados MySQL
+
 ---
 
 ## SQL/Banco de Dados
@@ -173,6 +191,22 @@ As informações persistidas no Banco de Dados podem ser editadas ou excluídas.
 ---
 
 ## Como rodar a aplicação :arrow_forward:
+
+
+No terminal, clone o projeto com o código abaixo:
+
+`git clone https://github.com/alvaropires/challenge-one-alura-hotel-br.git`
+
+Ou se preferir, pode baixar o pacote compactado clicando em no link abaixo:
+
+[Download do Projeto](https://github.com/alvaropires/challenge-one-alura-hotel-br/archive/refs/heads/repositorio-base.zip)
+
+Utilizando sua IDE favorita, compile e execute a Classe Login.java,localizada dentro do package views.
+
+![Captura de tela de 2023-06-15 23-49-34](https://github.com/alvaropires/challenge-one-alura-hotel-br/assets/94912998/7757c69f-2f16-4235-844f-fd7abec8adcb)
+
+
+Agora o seu sistema de reservas estará apto a ser utilizado. 
 
 ---
 
