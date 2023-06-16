@@ -127,6 +127,49 @@ public class ConnectionFactory {
 
 ## Layout da Aplicação
 
+### - Login
+
+A tela inicial da aplicação é a página de login. Nela é possível autenticar o usuário. Por padrão, a autenticação se dá por usuário e senha:
+- usuário: admin
+- senha: admin
+
+  
+![Captura de tela de 2023-06-15 23-18-43](https://github.com/alvaropires/challenge-one-alura-hotel-br/assets/94912998/6f082f55-daf6-4c39-a337-23a2a5c70806)
+
+### - Menu Principal
+
+Neste menu, é possível visualizar a data atual, fechar a aplicação, acessar o Menu Registro de Reserva e Menu Buscar. 
+
+![Captura de tela de 2023-06-15 23-19-04](https://github.com/alvaropires/challenge-one-alura-hotel-br/assets/94912998/1720c9a1-cf71-4a0d-a6b4-824ef521b698)
+
+
+### - Menu Registro de Reserva
+
+Ao selecionar as datas de checkin e checkout, o valor das diárias é calculado automáticamente. É possível também selecionar qual o tipo de pagamento. Clicando em Próximo, a aplicação apresenta a tela de Registro de Hóspede, no qual o hóspede será vinculado a reserva.
+
+![Captura de tela de 2023-06-15 23-20-10](https://github.com/alvaropires/challenge-one-alura-hotel-br/assets/94912998/c90241be-aff0-4a40-9b1b-26d78a6eceb4)
+
+![Captura de tela de 2023-06-15 23-21-13](https://github.com/alvaropires/challenge-one-alura-hotel-br/assets/94912998/76107a56-bc23-4800-872c-b9cb5709ab9d)
+
+
+### - Menu Buscar
+
+Nesta tela, as informações das Reservas e dos Hóspedes que estão persistidas no Banco de Dados são exibidas em suas respectivas abas. Sendo possível realizar busca de reservas pelo seu número e busca de hóspedes pelo sobrenome.
+
+![Captura de tela de 2023-06-15 23-21-41](https://github.com/alvaropires/challenge-one-alura-hotel-br/assets/94912998/72a687b3-6a85-465f-a64e-fb0c2d76907a)
+
+![Captura de tela de 2023-06-15 23-21-52](https://github.com/alvaropires/challenge-one-alura-hotel-br/assets/94912998/3a2974db-502d-4c47-ac36-97bf0fc24bf5)
+
+
+### - Menu Editar e Função Excluir
+
+As informações persistidas no Banco de Dados podem ser editadas ou excluídas. Mas essas funções somente ocorrem quando existe reserva ou hóspede selecionado. Em caso de edição, é aberto um novo Menu com os dados a serem editados.
+
+![Captura de tela de 2023-06-15 23-22-11](https://github.com/alvaropires/challenge-one-alura-hotel-br/assets/94912998/f6a7ff1f-1445-4b3e-a417-18d78daf9582)
+
+![Captura de tela de 2023-06-15 23-22-37](https://github.com/alvaropires/challenge-one-alura-hotel-br/assets/94912998/b6ef026e-a22c-46a4-b0f2-a7ee8d8fa1f7)
+
+
 ---
 
 ## Como rodar a aplicação :arrow_forward:
