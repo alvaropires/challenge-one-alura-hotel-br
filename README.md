@@ -57,12 +57,67 @@ Foi utilizada a Linguagem Java para elaboração do projeto e a APIJDBC para con
 - Dados persistidos em Banco de Dados MySQL
 ---
 
-## SQL/BD
+## SQL/Banco de Dados
 
 O script que cria as tabelas necessárias para o projeto pode ser obtido a partir do link abaixo:
 
-<a href="https://github.com/alvaropires/challenge-one-alura-hotel-br/blob/repositorio-base/script%20my_sql%20hotel_alura.sql" target="_blank" rel="noopener">Script SQL para Criação das Tabelas</a>
+[Script SQL para Criação das Tabelas](https://github.com/alvaropires/challenge-one-alura-hotel-br/blob/repositorio-base/script%20my_sql%20hotel_alura.sql)
 
+```
+CREATE SCHEMA IF NOT EXISTS hotel_alura;
+
+use hotel_alura;
+
+CREATE TABLE IF NOT EXISTS reservas(
+     id INT auto_increment PRIMARY KEY,
+     data_entrada DATE NOT NULL,
+     data_saida DATE NOT NULL,
+     valor VARCHAR (50),
+     forma_pagamento VARCHAR (50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS hospedes(
+     id INT auto_increment PRIMARY KEY,
+     nome VARCHAR(30) NOT NULL,
+     sobrenome VARCHAR(100) NOT NULL,
+     data_nascimento DATE NOT NULL,
+     nacionalidade VARCHAR (50),
+     telefone VARCHAR (50),
+     reserva_id INT
+);
+
+ALTER TABLE hospedes ADD CONSTRAINT fk_reservas FOREIGN KEY (reserva_id) references
+reservas(id);
+```
+
+O acesso ao Banco de Dados MySQL foi realizado a partir da API JDBC. Por padrão, o banco de dados do projeto foi criado com os seguintes atributos:
+
+- url = "jdbc:mysql://localhost/hotel_alura?useTimezone=true&serverTimezone=UTC"
+- user = "root"
+- password = "mysql"
+
+A conexão com o Banco pode ser configurada alterando os seguintes atributos na classe [ConnectionFactory.java](https://github.com/alvaropires/challenge-one-alura-hotel-br/blob/repositorio-base/src/jdb/factory/ConnectionFactory.java):
+
+
+```
+
+public class ConnectionFactory {
+	
+	private DataSource dataSource;
+	
+	public ConnectionFactory() {
+		ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
+		comboPooledDataSource.setJdbcUrl("SUA URL DE CONEXÃO");
+		comboPooledDataSource.setUser("SEU USUÁRIO");
+		comboPooledDataSource.setPassword("SUA SENHA");
+		
+		this.dataSource = comboPooledDataSource;
+		
+	}
+	
+	... Restante do Código Omitido
+}
+```
 
 
 
